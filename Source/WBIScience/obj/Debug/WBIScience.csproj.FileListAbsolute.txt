@@ -69,6 +69,6 @@ C:\Projects\KSP\WildBlueIndustries\WBIScience\Source\WBIScience\bin\Debug\WBIRes
 C:\Projects\KSP\WildBlueIndustries\WBIScience\Source\WBIScience\bin\Debug\KSPAssets.XmlSerializers.dll
 C:\Projects\KSP\WildBlueIndustries\WBIScience\Source\WBIScience\obj\Debug\WBIScience.csproj.AssemblyReference.cache
 C:\Projects\KSP\WildBlueIndustries\WBIScience\Source\WBIScience\obj\Debug\WBIScience.csproj.CoreCompileInputs.cache
-C:\Projects\KSP\WildBlueIndustries\WBIScience\Source\WBIScience\obj\Debug\WBIScience.csproj.CopyComplete
 C:\Projects\KSP\WildBlueIndustries\WBIScience\Source\WBIScience\obj\Debug\WBIScience.dll
 C:\Projects\KSP\WildBlueIndustries\WBIScience\Source\WBIScience\obj\Debug\WBIScience.pdb
+C:\Projects\KSP\WildBlueIndustries\WBIScience\Source\WBIScience\obj\Debug\WBIScience.csproj.Up2Date
