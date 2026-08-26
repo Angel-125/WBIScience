@@ -606,6 +606,18 @@ namespace WBIScience
                 {
                     experimentResource = resourceMap[resourceMapKeys[index]];
 
+                    // Invalid or zero-sized requirements must never count as completed.
+                    // Besides being a bad definition, dividing 0 by 0 produces NaN and
+                    // causes the comparison below to fall through as though it succeeded.
+                    if (experimentResource.targetAmount <= 0.0)
+                    {
+                        status = "Invalid resource requirement: " + experimentResource.name;
+                        Debug.LogError("[WBIModuleScienceExperiment] - Experiment " + experimentID +
+                            " has an invalid target amount for " + experimentResource.name + ": " +
+                            experimentResource.targetAmount);
+                        return false;
+                    }
+
                     if (!checkPartResources)
                     {
                         //If necessary, pull the resource from the vessel instead of waiting for the resource
@@ -628,7 +640,12 @@ namespace WBIScience
                     else //Check the part for the required resources
                     {
 //                        Debug.Log("[WBIModuleScienceExperiment] - Checking part for " + experimentResource.name);
-                        if (this.part.Resources.Contains(experimentResource.name))
+                        if (!this.part.Resources.Contains(experimentResource.name))
+                        {
+                            status = "Missing required resource: " + experimentResource.name;
+                            return false;
+                        }
+                        else
                         {
                             partResource = this.part.Resources[experimentResource.name];
                             if ((partResource.amount / experimentResource.targetAmount) < 0.999f)
@@ -645,7 +662,7 @@ namespace WBIScience
             if (chanceOfSuccess > 0.001f && isCompleted == false && experimentFailed == false)
             {
                 resultRoll = performAnalysisRoll();
-                if (resultRoll < chanceOfSuccess)
+                if (resultRoll > chanceOfSuccess)
                 {
                     experimentFailed = true;
                     status = "Failed to yield results";
@@ -1290,9 +1307,10 @@ namespace WBIScience
             float roll = 0.0f;
 
             //Roll 3d6 to approximate a bell curve, then convert it to a value between 1 and 100.
-            roll = UnityEngine.Random.Range(1, 6);
-            roll += UnityEngine.Random.Range(1, 6);
-            roll += UnityEngine.Random.Range(1, 6);
+            //The upper bound of Unity's integer Random.Range overload is exclusive.
+            roll = UnityEngine.Random.Range(1, 7);
+            roll += UnityEngine.Random.Range(1, 7);
+            roll += UnityEngine.Random.Range(1, 7);
             roll *= 5.5556f;
 
             //Factor in crew

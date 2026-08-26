@@ -317,6 +317,13 @@ namespace WBIScience
                             nodeResource.AddValue("amount", "0");
                             nodeResource.AddValue("maxAmount", experiment.resourceMap[resourceName].targetAmount.ToString());
                             resource = this.part.Resources.Add(nodeResource);
+                            if (resource == null)
+                            {
+                                Debug.LogError("[WBIExperimentLab] - Unable to add required resource " + resourceName +
+                                    " for experiment " + experiment.experimentID + " on part " + this.part.partInfo.title +
+                                    ". Verify that its RESOURCE_DEFINITION is installed.");
+                                continue;
+                            }
                             resource.isVisible = false;
                             resource.isTweakable = false;
                             addedResources.Add(resourceName);
@@ -361,6 +368,13 @@ namespace WBIScience
                         nodeResource.AddValue("amount", "0");
                         nodeResource.AddValue("maxAmount", transferRecipient.resourceMap[resourceName].targetAmount.ToString());
                         resource = this.part.Resources.Add(nodeResource);
+                        if (resource == null)
+                        {
+                            Debug.LogError("[WBIExperimentLab] - Unable to add required resource " + resourceName +
+                                " for transferred experiment " + transferRecipient.experimentID + " on part " +
+                                this.part.partInfo.title + ". Verify that its RESOURCE_DEFINITION is installed.");
+                            continue;
+                        }
                         resource.isVisible = false;
                         resource.isTweakable = false;
                     }
